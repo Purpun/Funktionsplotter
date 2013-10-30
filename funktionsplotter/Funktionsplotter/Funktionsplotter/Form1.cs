@@ -91,19 +91,25 @@ namespace Funktionsplotter
 
                 Gitterabstand = tmpGitterabstand * Zoomfaktor;
 
-                for (double xGitter = pnl_Grafik.Width/2; xGitter <= pnl_Grafik.Width; xGitter = xGitter + Gitterabstand)
+                for (double xGitter = pnl_Grafik.Width / 2 - XCoursor; xGitter <= pnl_Grafik.Width + XCoursor; xGitter = xGitter + Gitterabstand)
                 {
-                    g.DrawLine(new Pen(Color.Black), (int)xGitter, 0, (int)xGitter, pnl_Grafik.Height);
+                    if (xGitter != pnl_Grafik.Width / 2 - XCoursor)
+                    {
+                        g.DrawLine(new Pen(Color.Black), (int)xGitter, 0, (int)xGitter, pnl_Grafik.Height);
+                    }
                 }
-                for (double xGitter = pnl_Grafik.Width / 2; xGitter >= 0; xGitter = xGitter - Gitterabstand)
+                for (double xGitter = pnl_Grafik.Width / 2 - XCoursor; xGitter >= 0 - XCoursor; xGitter = xGitter - Gitterabstand)
                 {
-                    g.DrawLine(new Pen(Color.Black), (int)xGitter, 0, (int)xGitter, pnl_Grafik.Height);
+                    if (xGitter != pnl_Grafik.Width / 2 - XCoursor)
+                    {
+                        g.DrawLine(new Pen(Color.Black), (int)xGitter, 0, (int)xGitter, pnl_Grafik.Height);
+                    }
                 }
-                for (double yGitter = pnl_Grafik.Height/2; yGitter <= pnl_Grafik.Height; yGitter = yGitter + Gitterabstand)
+                for (double yGitter = pnl_Grafik.Height / 2 - YCoursor; yGitter <= pnl_Grafik.Height - YCoursor; yGitter = yGitter + Gitterabstand)
                 {
-                    g.DrawLine(new Pen(Color.Black),0,(int)yGitter,pnl_Grafik.Width,(int)yGitter);
+                    g.DrawLine(new Pen(Color.Black), 0, (int)yGitter, pnl_Grafik.Width, (int)yGitter);
                 }
-                for (double yGitter = pnl_Grafik.Height / 2; yGitter >= 0; yGitter = yGitter - Gitterabstand)
+                for (double yGitter = pnl_Grafik.Height / 2 - YCoursor; yGitter >= 0 + YCoursor; yGitter = yGitter - Gitterabstand)
                 {
                     g.DrawLine(new Pen(Color.Black), 0, (int)yGitter, pnl_Grafik.Width, (int)yGitter);
                 }
