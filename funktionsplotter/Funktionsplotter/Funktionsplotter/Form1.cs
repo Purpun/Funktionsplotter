@@ -12,6 +12,10 @@ namespace Funktionsplotter
     public partial class Plotter : Form
     {
         double[] xWert = new double[4];
+        double[] Funktion1_xWert = new double[4];
+        double[] Funktion2_xWert = new double[4];
+        double[] Funktion3_xWert = new double[4];
+        double[] Funktion4_xWert = new double[4];
         double[] tmpxWert = new double[4];
         double Zoomfaktor = 32;
         double tmpZoomfaktor;
@@ -19,10 +23,15 @@ namespace Funktionsplotter
         double Gitterabstand;
         double tmpGitterabstand;
         int Coursor_Size = 16;
+        int argb;
+        bool xWerte_enabled = true;
         bool xWert_enabled = false;
         bool Gitterabstand_enabled;
         bool btn_Gitter_Pressed = false;
         bool btn_Cousor_Pressed = false;
+        bool Main_Anzeigen = false;
+        bool pnlRefresh = true;
+        bool pnlClear = false;
 
         public Plotter()
         {
@@ -31,14 +40,27 @@ namespace Funktionsplotter
 
         private void main()
         {
-            xWerte();
+            if (xWerte_enabled == true)
+            {
+                xWerte();
+            }
             Fixpunkt();
             Graphics g;
             g = pnl_Grafik.CreateGraphics();
-            pnl_Grafik.Refresh();
+            if (pnlRefresh == true)
+            {
+                pnl_Grafik.Refresh();
+            }
             Gitter(g);
             Grafik(g);
             Coursor(g);
+            if (pnlClear == true)
+            {
+                pnl_Grafik.Refresh();
+            }
+            xWerte_enabled = true;
+            pnlRefresh = true;
+            pnlClear = false;
         }
 
         private void xWerte()
@@ -57,24 +79,71 @@ namespace Funktionsplotter
             xWert[0] = tmpxWert[0] * Zoomfaktor;
         }
 
+        private void Speichern()
+        {
+            if (CBox_Funktion1.Checked == true)
+            {
+                Funktion1_xWert[3] = xWert[3] * (Zoomfaktor * Zoomfaktor);
+                Funktion1_xWert[2] = xWert[2] * Zoomfaktor;
+                Funktion1_xWert[1] = xWert[1];
+                Funktion1_xWert[0] = xWert[0] / Zoomfaktor;
+            }
+
+            if (CBox_Funktion2.Checked == true)
+            {
+                Funktion2_xWert[3] = xWert[3] * (Zoomfaktor * Zoomfaktor);
+                Funktion2_xWert[2] = xWert[2] * Zoomfaktor;
+                Funktion2_xWert[1] = xWert[1];
+                Funktion2_xWert[0] = xWert[0] / Zoomfaktor;
+            }
+
+            if (CBox_Funktion3.Checked == true)
+            {
+                Funktion3_xWert[3] = xWert[3] * (Zoomfaktor * Zoomfaktor);
+                Funktion3_xWert[2] = xWert[2] * Zoomfaktor;
+                Funktion3_xWert[1] = xWert[1];
+                Funktion3_xWert[0] = xWert[0] / Zoomfaktor;
+            }
+
+            if (CBox_Funktion4.Checked == true)
+            {
+                Funktion4_xWert[3] = xWert[3] * (Zoomfaktor * Zoomfaktor);
+                Funktion4_xWert[2] = xWert[2] * Zoomfaktor;
+                Funktion4_xWert[1] = xWert[1];
+                Funktion4_xWert[0] = xWert[0] / Zoomfaktor;
+            }
+        }
+
+        private void MainAnzeigen()
+        {
+            if (Main_Anzeigen == true)
+            {
+                Anzeigen();
+            }
+            else
+            {
+                main();
+            }
+        }
+
         private void Grafik(Graphics g)
-        { 
+        {
             double[] x = new double[2];
             double[] X = new double[2];
             double[] Y = new double[2];
             for (x[0] = (-pnl_Grafik.Width / 2) + XCoursor; x[0] <= (pnl_Grafik.Width / 2) + XCoursor; x[0] += 1)
             {
                 x[1] = x[0] + 1;
-                X[0] = pnl_Grafik.Width/2 + x[0]-XCoursor;
-                X[1] = pnl_Grafik.Width/2 + (x[0] + 1)-XCoursor;
-                Y[0] = pnl_Grafik.Width/2 - ((xWert[3] * x[0] * x[0] * x[0]) + (xWert[2] * x[0] * x[0]) + (xWert[1] * x[0]) + (xWert[0]) + YCoursor);
-                Y[1] = pnl_Grafik.Width/2 - ((xWert[3] * x[1] * x[1] * x[1]) + (xWert[2] * x[1] * x[1]) + (xWert[1] * x[1]) + (xWert[0]) + YCoursor);
-                g.DrawLine(new Pen(Color.Blue), (int)X[0], (int)Y[0], (int)X[1], (int)Y[1]);
+                X[0] = pnl_Grafik.Width / 2 + x[0] - XCoursor;
+                X[1] = pnl_Grafik.Width / 2 + (x[0] + 1) - XCoursor;
+                Y[0] = pnl_Grafik.Width / 2 - ((xWert[3] * x[0] * x[0] * x[0]) + (xWert[2] * x[0] * x[0]) + (xWert[1] * x[0]) + (xWert[0]) + YCoursor);
+                Y[1] = pnl_Grafik.Width / 2 - ((xWert[3] * x[1] * x[1] * x[1]) + (xWert[2] * x[1] * x[1]) + (xWert[1] * x[1]) + (xWert[0]) + YCoursor);
+                g.DrawLine(new Pen(Color.FromArgb(argb)), (int)X[0], (int)Y[0], (int)X[1], (int)Y[1]);
 
                 if ((int)X[0] == 0)
                 {
-                    g.DrawLine(new Pen(Color.Red),pnl_Grafik.Width / 2 - (int)XCoursor, 0, pnl_Grafik.Width / 2 - (int)XCoursor, pnl_Grafik.Height);
-                    g.DrawLine(new Pen(Color.Red), 0, pnl_Grafik.Height / 2 - (int)YCoursor, pnl_Grafik.Width, pnl_Grafik.Height / 2 - (int)YCoursor);
+                    g.DrawLine(new Pen(Color.DarkTurquoise), pnl_Grafik.Width / 2 - (int)XCoursor, 0, pnl_Grafik.Width / 2 - (int)XCoursor, pnl_Grafik.Height);
+                    g.DrawLine(new Pen(Color.DarkTurquoise), 0, pnl_Grafik.Height / 2 - (int)YCoursor, pnl_Grafik.Width, pnl_Grafik.Height / 2 - (int)YCoursor);
                 }
             }
         }
@@ -147,7 +216,10 @@ namespace Funktionsplotter
             }
             else if (btn_Gitter_Pressed == false)
             {
-                pnl_Grafik.Refresh();
+                if (pnlRefresh == true)
+                {
+                    pnl_Grafik.Refresh();
+                }
                 btn_Gitter.Text = "Gitter an";
             }
             Gitterabstand_enabled = false;
@@ -159,6 +231,60 @@ namespace Funktionsplotter
             YCoursor = -Convert.ToDouble(txt_YPosition.Text)*Zoomfaktor;
             lbl_XPosition.Text = txt_XPosition.Text;
             lbl_YPosition.Text = txt_YPosition.Text;
+        }
+
+        private void Anzeigen()
+        {
+            xWerte_enabled = false;
+            pnlClear = true;
+            main();
+            if (CBox_Funktion1.Checked == true)
+            {
+                xWerte_enabled = false;
+                pnlRefresh = false;
+                xWert[3] = Funktion1_xWert[3] / (Zoomfaktor * Zoomfaktor);
+                xWert[2] = Funktion1_xWert[2] / Zoomfaktor;
+                xWert[1] = Funktion1_xWert[1];
+                xWert[0] = Funktion1_xWert[0] * Zoomfaktor;
+                argb = Color.DodgerBlue.ToArgb();
+                main();
+            }
+
+            if (CBox_Funktion2.Checked == true)
+            {
+                xWerte_enabled = false;
+                pnlRefresh = false;
+                xWert[3] = Funktion2_xWert[3] / (Zoomfaktor * Zoomfaktor);
+                xWert[2] = Funktion2_xWert[2] / Zoomfaktor;
+                xWert[1] = Funktion2_xWert[1];
+                xWert[0] = Funktion2_xWert[0] * Zoomfaktor;
+                argb = Color.MediumSeaGreen.ToArgb();
+                main();
+            }
+
+            if (CBox_Funktion3.Checked == true)
+            {
+                xWerte_enabled = false;
+                pnlRefresh = false;
+                xWert[3] = Funktion3_xWert[3] / (Zoomfaktor * Zoomfaktor);
+                xWert[2] = Funktion3_xWert[2] / Zoomfaktor;
+                xWert[1] = Funktion3_xWert[1];
+                xWert[0] = Funktion3_xWert[0] * Zoomfaktor;
+                argb = Color.Gold.ToArgb();
+                main();
+            }
+
+            if (CBox_Funktion4.Checked == true)
+            {
+                xWerte_enabled = false;
+                pnlRefresh = false;
+                xWert[3] = Funktion4_xWert[3] / (Zoomfaktor * Zoomfaktor);
+                xWert[2] = Funktion4_xWert[2] / Zoomfaktor;
+                xWert[1] = Funktion4_xWert[1];
+                xWert[0] = Funktion4_xWert[0] * Zoomfaktor;
+                argb = Color.OrangeRed.ToArgb();
+                main();
+            }
         }
 
         private void Coursor(Graphics g)
@@ -176,13 +302,15 @@ namespace Funktionsplotter
         {
             btn_Gitter_Pressed = !btn_Gitter_Pressed;
             Gitterabstand_enabled = true;
-            main();
+            MainAnzeigen();
         }
 
         private void btn_Zeichnen_Click(object sender, EventArgs e)
         {
+            argb = Color.LightSlateGray.ToArgb();
             xWert_enabled = true;
-            main();
+            Main_Anzeigen = false;
+            MainAnzeigen();
         }
 
         private void btn_ZoomPlus_Click(object sender, EventArgs e)
@@ -201,7 +329,7 @@ namespace Funktionsplotter
                 }
                 tmpZoomfaktor = Convert.ToDouble(txt_Zoomfaktor.Text);
             }
-            main();
+            MainAnzeigen();
         }
 
         private void btn_ZoomMinus_Click(object sender, EventArgs e)
@@ -220,12 +348,12 @@ namespace Funktionsplotter
                 }
                 tmpZoomfaktor = Convert.ToDouble(txt_Zoomfaktor.Text);
             }
-            main();
+            MainAnzeigen();
         }
 
         private void btn_GoTo_Click(object sender, EventArgs e)
         {
-            main();
+            MainAnzeigen();
         }
 
         private void btn_Löschen_Click(object sender, EventArgs e)
@@ -242,7 +370,18 @@ namespace Funktionsplotter
         private void btn_Cousor_Click(object sender, EventArgs e)
         {
             btn_Cousor_Pressed = !btn_Cousor_Pressed;
-            main();
+            MainAnzeigen();
+        }
+
+        private void btn_Anzeigen_Click(object sender, EventArgs e)
+        {
+            Main_Anzeigen = true;
+            MainAnzeigen();
+        }
+
+        private void btn_Speichern_Click(object sender, EventArgs e)
+        {
+            Speichern();
         }
     }
 }

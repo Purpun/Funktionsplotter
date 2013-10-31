@@ -56,6 +56,12 @@
             this.lbl_YPosition = new System.Windows.Forms.Label();
             this.btn_Löschen = new System.Windows.Forms.Button();
             this.btn_Cousor = new System.Windows.Forms.Button();
+            this.CBox_Funktion1 = new System.Windows.Forms.CheckBox();
+            this.CBox_Funktion4 = new System.Windows.Forms.CheckBox();
+            this.CBox_Funktion3 = new System.Windows.Forms.CheckBox();
+            this.CBox_Funktion2 = new System.Windows.Forms.CheckBox();
+            this.btn_Anzeigen = new System.Windows.Forms.Button();
+            this.btn_Speichern = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pnl_Grafik
@@ -308,11 +314,77 @@
             this.btn_Cousor.UseVisualStyleBackColor = true;
             this.btn_Cousor.Click += new System.EventHandler(this.btn_Cousor_Click);
             // 
+            // CBox_Funktion1
+            // 
+            this.CBox_Funktion1.AutoSize = true;
+            this.CBox_Funktion1.Location = new System.Drawing.Point(518, 117);
+            this.CBox_Funktion1.Name = "CBox_Funktion1";
+            this.CBox_Funktion1.Size = new System.Drawing.Size(76, 17);
+            this.CBox_Funktion1.TabIndex = 31;
+            this.CBox_Funktion1.Text = "Funktion 1";
+            this.CBox_Funktion1.UseVisualStyleBackColor = true;
+            // 
+            // CBox_Funktion4
+            // 
+            this.CBox_Funktion4.AutoSize = true;
+            this.CBox_Funktion4.Location = new System.Drawing.Point(518, 186);
+            this.CBox_Funktion4.Name = "CBox_Funktion4";
+            this.CBox_Funktion4.Size = new System.Drawing.Size(76, 17);
+            this.CBox_Funktion4.TabIndex = 32;
+            this.CBox_Funktion4.Text = "Funktion 4";
+            this.CBox_Funktion4.UseVisualStyleBackColor = true;
+            // 
+            // CBox_Funktion3
+            // 
+            this.CBox_Funktion3.AutoSize = true;
+            this.CBox_Funktion3.Location = new System.Drawing.Point(518, 163);
+            this.CBox_Funktion3.Name = "CBox_Funktion3";
+            this.CBox_Funktion3.Size = new System.Drawing.Size(76, 17);
+            this.CBox_Funktion3.TabIndex = 33;
+            this.CBox_Funktion3.Text = "Funktion 3";
+            this.CBox_Funktion3.UseVisualStyleBackColor = true;
+            // 
+            // CBox_Funktion2
+            // 
+            this.CBox_Funktion2.AutoSize = true;
+            this.CBox_Funktion2.Location = new System.Drawing.Point(518, 140);
+            this.CBox_Funktion2.Name = "CBox_Funktion2";
+            this.CBox_Funktion2.Size = new System.Drawing.Size(76, 17);
+            this.CBox_Funktion2.TabIndex = 34;
+            this.CBox_Funktion2.Text = "Funktion 2";
+            this.CBox_Funktion2.UseVisualStyleBackColor = true;
+            // 
+            // btn_Anzeigen
+            // 
+            this.btn_Anzeigen.Location = new System.Drawing.Point(518, 210);
+            this.btn_Anzeigen.Name = "btn_Anzeigen";
+            this.btn_Anzeigen.Size = new System.Drawing.Size(100, 23);
+            this.btn_Anzeigen.TabIndex = 35;
+            this.btn_Anzeigen.Text = "Anzeigen";
+            this.btn_Anzeigen.UseVisualStyleBackColor = true;
+            this.btn_Anzeigen.Click += new System.EventHandler(this.btn_Anzeigen_Click);
+            // 
+            // btn_Speichern
+            // 
+            this.btn_Speichern.Location = new System.Drawing.Point(628, 210);
+            this.btn_Speichern.Name = "btn_Speichern";
+            this.btn_Speichern.Size = new System.Drawing.Size(100, 23);
+            this.btn_Speichern.TabIndex = 36;
+            this.btn_Speichern.Text = "Speichern";
+            this.btn_Speichern.UseVisualStyleBackColor = true;
+            this.btn_Speichern.Click += new System.EventHandler(this.btn_Speichern_Click);
+            // 
             // Plotter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(894, 522);
+            this.Controls.Add(this.btn_Speichern);
+            this.Controls.Add(this.btn_Anzeigen);
+            this.Controls.Add(this.CBox_Funktion2);
+            this.Controls.Add(this.CBox_Funktion3);
+            this.Controls.Add(this.CBox_Funktion4);
+            this.Controls.Add(this.CBox_Funktion1);
             this.Controls.Add(this.btn_Cousor);
             this.Controls.Add(this.btn_Löschen);
             this.Controls.Add(this.lbl_YPosition);
@@ -378,6 +450,12 @@
         private System.Windows.Forms.Label lbl_YPosition;
         private System.Windows.Forms.Button btn_Löschen;
         private System.Windows.Forms.Button btn_Cousor;
+        private System.Windows.Forms.CheckBox CBox_Funktion1;
+        private System.Windows.Forms.CheckBox CBox_Funktion4;
+        private System.Windows.Forms.CheckBox CBox_Funktion3;
+        private System.Windows.Forms.CheckBox CBox_Funktion2;
+        private System.Windows.Forms.Button btn_Anzeigen;
+        private System.Windows.Forms.Button btn_Speichern;
     }
 }
 
